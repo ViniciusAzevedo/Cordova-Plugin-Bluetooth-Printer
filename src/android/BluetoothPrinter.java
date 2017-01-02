@@ -32,6 +32,8 @@ import android.graphics.Bitmap.Config;
 import android.util.Xml.Encoding;
 import android.util.Base64;
 
+import com.lyvreyang.qrcode.*;
+
 public class BluetoothPrinter extends CordovaPlugin {
 	private static final String LOG_TAG = "BluetoothPrinter";
 	BluetoothAdapter mBluetoothAdapter;
@@ -100,6 +102,19 @@ public class BluetoothPrinter extends CordovaPlugin {
 			try {
 				String msg = args.getString(0);
                 printText(callbackContext, msg);
+			} catch (IOException e) {
+				Log.e(LOG_TAG, e.getMessage());
+				e.printStackTrace();
+			}
+			return true;
+		}
+
+		else if (action.equals("printJPQRCode")){
+			try {
+				int typeNumber = Integer.parseInt(args.getString(0));
+				int errorCorrectLevel = Integer.parseInt(args.getString(1));
+				String content = args.getString(2);
+                printJPQRCode(callbackContext, typeNumber, errorCorrectLevel, content);
 			} catch (IOException e) {
 				Log.e(LOG_TAG, e.getMessage());
 				e.printStackTrace();
@@ -264,6 +279,30 @@ public class BluetoothPrinter extends CordovaPlugin {
 			// tell the user data were sent
 			//Log.d(LOG_TAG, "Data Sent");
 			callbackContext.success("Data Sent");
+			return true;
+
+		} catch (Exception e) {
+			String errMsg = e.getMessage();
+			Log.e(LOG_TAG, errMsg);
+			e.printStackTrace();
+			callbackContext.error(errMsg);
+		}
+		return false;
+	}
+
+	//This will send a qrcode to the bluetooth printer
+	boolean printJPQRCode(CallbackContext callbackContext, 
+	int typeNumber, 
+	int errorCorrectLevel, 
+	String content) throws IOException {
+		try {
+
+			byte[] b = Print.getQRCodeBytes2Print(typeNumber, errorCorrectLevel, content)
+			mmOutputStream.write(b);
+
+			// tell the user data were sent
+			//Log.d(LOG_TAG, "Data Sent");
+			callbackContext.success("QRCode Data Sent");
 			return true;
 
 		} catch (Exception e) {
