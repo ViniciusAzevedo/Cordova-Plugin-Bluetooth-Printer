@@ -297,7 +297,7 @@ public class BluetoothPrinter extends CordovaPlugin {
 	String content) throws IOException {
 		try {
 
-			byte[] b = Print.getQRCodeBytes2Print(typeNumber, errorCorrectLevel, content)
+			byte[] b = Print.getQRCodeBytes2Print(typeNumber, errorCorrectLevel, content);
 			mmOutputStream.write(b);
 
 			// tell the user data were sent
