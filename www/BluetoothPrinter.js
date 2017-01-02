@@ -20,7 +20,7 @@ var BTPrinter = {
       exec(fnSuccess, fnError, "BluetoothPrinter", "printPOSCommand", [str]);
    },
    printJPQRCode: function(fnSuccess, fnError, typeNumber, errorCorrectionLevel, str){
-      exec(fnSuccess, fnError, "BluetoothPrinter", "printText", [typeNumber, errorCorrectionLevel, str]);
+      exec(fnSuccess, fnError, "BluetoothPrinter", "printJPQRCode", [typeNumber, errorCorrectionLevel, str]);
    }
 };
 
