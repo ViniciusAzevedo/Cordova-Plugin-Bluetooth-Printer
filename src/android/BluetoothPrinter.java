@@ -32,7 +32,7 @@ import android.graphics.Bitmap.Config;
 import android.util.Xml.Encoding;
 import android.util.Base64;
 
-import com.lyvreyang.qrcode.*;
+import com.lvrenyang.qrcode.*;
 
 public class BluetoothPrinter extends CordovaPlugin {
 	private static final String LOG_TAG = "BluetoothPrinter";
